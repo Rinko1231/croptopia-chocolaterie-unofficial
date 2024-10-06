@@ -1,0 +1,33 @@
+{
+  "replace": false,
+  "values": [
+    "cacao:dark_chocolate",
+    "cacao:caramel_dark_chocolate",
+    "cacao:praline_dark_chocolate",
+    "cacao:strawberry_cream_dark_chocolate",
+    "cacao:cookie_cream_dark_chocolate",
+    "cacao:mixed_nuts_dark_chocolate",
+    "cacao:coconut_dark_chocolate",
+    "cacao:peanut_butter_dark_chocolate",
+
+    "cacao:milk_chocolate",
+    "cacao:caramel_milk_chocolate",
+    "cacao:praline_milk_chocolate",
+    "cacao:strawberry_cream_milk_chocolate",
+    "cacao:cookie_cream_milk_chocolate",
+    "cacao:mixed_nuts_milk_chocolate",
+    "cacao:coconut_milk_chocolate",
+    "cacao:peanut_butter_milk_chocolate",
+
+    "cacao:white_chocolate",
+    "cacao:caramel_white_chocolate",
+    "cacao:praline_white_chocolate",
+    "cacao:strawberry_cream_white_chocolate",
+    "cacao:cookie_cream_white_chocolate",
+    "cacao:mixed_nuts_white_chocolate",
+    "cacao:coconut_white_chocolate",
+    "cacao:peanut_butter_white_chocolate",
+
+    "cacao:golden_chocolate"
+  ]
+}
