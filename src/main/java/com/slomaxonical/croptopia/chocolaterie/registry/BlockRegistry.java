@@ -19,7 +19,7 @@ import java.util.function.ToIntFunction;
 public class BlockRegistry {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.createBlocks(CroptopiaChocolaterie.MOD_ID);
 
-    public static final DeferredHolder<Block, Block> CHOCOLATE_CAKE = BLOCKS.register("chocolate_cake",()-> new ChocolateCakeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CAKE).strength(0.5F).sound(SoundType.WOOL)));
+    public static final DeferredHolder<Block, Block> CHOCOLATE_CAKE = BLOCKS.register("chocolate_cake",()-> new ChocolateCakeBlock(Blocks.CAKE.properties().strength(0.5F).sound(SoundType.WOOL)));
     public static final DeferredHolder<Block, Block> CANDLE_CHOCOLATE_CAKE = BLOCKS.register("candle_chocolate_cake", ()-> new CandleChocolateCakeBlock(Blocks.CANDLE, BlockBehaviour.Properties.ofFullCopy(CHOCOLATE_CAKE.get()).lightLevel(litBlockEmission())));
     public static final DeferredHolder<Block, Block> BLACK_CANDLE_CHOCOLATE_CAKE = BLOCKS.register("black_candle_chocolate_cake", ()-> new CandleChocolateCakeBlock(Blocks.BLACK_CANDLE, BlockBehaviour.Properties.ofFullCopy(CANDLE_CHOCOLATE_CAKE.get())));
     public static final DeferredHolder<Block, Block> GRAY_CANDLE_CHOCOLATE_CAKE = BLOCKS.register("gray_candle_chocolate_cake", ()-> new CandleChocolateCakeBlock(Blocks.GRAY_CANDLE, BlockBehaviour.Properties.ofFullCopy(CANDLE_CHOCOLATE_CAKE.get())));

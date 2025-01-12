@@ -7,6 +7,7 @@ import net.minecraft.stats.Stats;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -15,59 +16,55 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CakeBlock;
 import net.minecraft.world.level.block.CandleBlock;
+import net.minecraft.world.level.block.CandleCakeBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
+
+import static com.ibm.icu.impl.ValidIdentifiers.Datatype.variant;
 
 public class ChocolateCakeBlock extends CakeBlock {
     public ChocolateCakeBlock(Properties properties) {
         super(properties);
     }
 
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+    @Override
+    public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         ItemStack itemstack = player.getItemInHand(hand);
         Item item = itemstack.getItem();
         if (itemstack.is(ItemTags.CANDLES) && state.getValue(BITES) == 0) {
             Block block = Block.byItem(item);
-            if (block instanceof ChocolateCakeBlock) {
+            CandleBlock candleblock = (CandleBlock) block;
+            if (block instanceof CandleBlock) {
                 if (!player.isCreative()) {
                     itemstack.shrink(1);
                 }
 
                 world.playSound(null, pos, SoundEvents.CAKE_ADD_CANDLE, SoundSource.BLOCKS, 1.0F, 1.0F);
-                world.setBlockAndUpdate(pos, CandleChocolateCakeBlock.byCandle(block));//HERE
+                world.setBlockAndUpdate(pos, CandleChocolateCakeBlock.byCandle(candleblock));//HERE
+
                 world.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
                 player.awardStat(Stats.ITEM_USED.get(item));
-                return InteractionResult.SUCCESS;
+                return ItemInteractionResult.SUCCESS;
             }
         }
-
-        if (world.isClientSide) {
-            if (eat(world, pos, state, player).consumesAction()) {
-                return InteractionResult.SUCCESS;
-            }
-
-            if (itemstack.isEmpty()) {
-                return InteractionResult.CONSUME;
-            }
-        }
-
-        return eat(world, pos, state, player);
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
-    protected static @NotNull InteractionResult eat(@NotNull LevelAccessor world, @NotNull BlockPos pos, @NotNull BlockState state, Player player) {
+
+    protected static InteractionResult eat(LevelAccessor level, BlockPos pos, BlockState state, Player player) {
         if (!player.canEat(false)) {
             return InteractionResult.PASS;
         } else {
             player.awardStat(Stats.EAT_CAKE_SLICE);
             player.getFoodData().eat(2, 0.1F);
             int i = state.getValue(BITES);
-            world.gameEvent(player, GameEvent.EAT, pos);
+            level.gameEvent(player, GameEvent.EAT, pos);
             if (i < 6) {
-                world.setBlock(pos, state.setValue(BITES, i + 1), 3);
+                level.setBlock(pos, state.setValue(BITES, Integer.valueOf(i + 1)), 3);
             } else {
-                world.removeBlock(pos, false);
-                world.gameEvent(player, GameEvent.BLOCK_DESTROY, pos);
+                level.removeBlock(pos, false);
+                level.gameEvent(player, GameEvent.BLOCK_DESTROY, pos);
             }
 
             return InteractionResult.SUCCESS;
