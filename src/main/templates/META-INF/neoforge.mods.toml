@@ -30,9 +30,18 @@ displayName = "${mod_name}" #mandatory
 #credits="" #optional
 # A text field displayed in the mod UI
 authors = "${mod_authors}" #optional
-credits="Natanaelel (original author)"
 # The description text for the mod (multi line!) (#mandatory)
-description = '''${mod_description}'''
+description = '''
+This is the NeoForge version of the Croptopia add-on focused on chocolate making.
+
+I tried to make the process as close to real chocolate making as possible:
+
+- roasting the cacao beans
+- grinding the roasted nibs to get the cacao mass
+- extracting the cacao butter leaving cocoa powder behind, both used in various places...
+
+(Ported by Rinko1231)
+'''
 
 # The [[mixins]] block allows you to declare your mixin config to FML so that it gets loaded.
 # [[mixins]]
