@@ -110,7 +110,11 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 dependencies {
     implementation "curse.maven:croptopia-415438:5892441"
-    implementation "curse.maven:epherolib-885449:5872111"    // Example mod dependency with JEI
+    implementation "curse.maven:epherolib-885449:5872111"
+    runtimeOnly "curse.maven:jei-238222:5846880"
+    runtimeOnly "curse.maven:appleskin-248787:5586600"
+    runtimeOnly "curse.maven:jade-324717:6011258"
+    // Example mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
     // compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"
     // compileOnly "mezz.jei:jei-${mc_version}-forge-api:${jei_version}"
